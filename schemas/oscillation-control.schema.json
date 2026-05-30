@@ -1,0 +1,600 @@
+{
+"$schema": "https://json-schema.org/draft/2020-12/schema",
+"$id": "https://example.org/schemas/oscillation-control.schema.json",
+"title": "Yin-Yang Oscillation Control Protocol Schema",
+"description": "Schema for validating the Yin-Yang Oscillation Control Protocol v0.1 specification.",
+"type": "object",
+"required": [
+"protocol",
+"metadata",
+"parent_protocol",
+"purpose",
+"scope",
+"core_control_parameters",
+"control_modes",
+"stability_evaluation",
+"rebalance_behavior",
+"claim_boundaries",
+"validation_expectations",
+"example_reference",
+"release_notes"
+],
+"additionalProperties": false,
+"properties": {
+"protocol": {
+"type": "object",
+"required": [
+"id",
+"name",
+"version",
+"status",
+"layer"
+],
+"additionalProperties": false,
+"properties": {
+"id": {
+"type": "string"
+},
+"name": {
+"type": "string"
+},
+"version": {
+"type": "string"
+},
+"status": {
+"type": "string",
+"enum": [
+"draft",
+"candidate",
+"stable",
+"deprecated"
+]
+},
+"layer": {
+"type": "string"
+}
+}
+},
+"metadata": {
+"type": "object",
+"required": [
+"description",
+"repository",
+"license",
+"specification_type",
+"implementation_status"
+],
+"additionalProperties": false,
+"properties": {
+"description": {
+"type": "string"
+},
+"repository": {
+"type": "string"
+},
+"license": {
+"type": "string"
+},
+"specification_type": {
+"type": "string"
+},
+"implementation_status": {
+"type": "string"
+}
+}
+},
+"parent_protocol": {
+"type": "object",
+"required": [
+"id",
+"role",
+"relationship",
+"dependency_type"
+],
+"additionalProperties": false,
+"properties": {
+"id": {
+"type": "string"
+},
+"role": {
+"type": "string"
+},
+"relationship": {
+"type": "string"
+},
+"dependency_type": {
+"type": "string"
+}
+}
+},
+"purpose": {
+"type": "object",
+"required": [
+"summary",
+"goals"
+],
+"additionalProperties": false,
+"properties": {
+"summary": {
+"type": "string"
+},
+"goals": {
+"type": "array",
+"items": {
+"type": "string"
+},
+"minItems": 1
+}
+}
+},
+"scope": {
+"type": "object",
+"required": [
+"included",
+"excluded"
+],
+"additionalProperties": false,
+"properties": {
+"included": {
+"type": "array",
+"items": {
+"type": "string"
+},
+"minItems": 1
+},
+"excluded": {
+"type": "array",
+"items": {
+"type": "string"
+},
+"minItems": 1
+}
+}
+},
+"core_control_parameters": {
+"type": "object",
+"required": [
+"oscillation_period",
+"amplitude_threshold",
+"convergence_window",
+"rebalance_interval",
+"overcorrection_limit",
+"phase_stability_score",
+"oscillation_decay",
+"adaptive_convergence"
+],
+"additionalProperties": false,
+"properties": {
+"oscillation_period": {
+"$ref": "#/$defs/numeric_parameter_definition"
+},
+"amplitude_threshold": {
+"$ref": "#/$defs/numeric_parameter_definition"
+},
+"convergence_window": {
+"$ref": "#/$defs/object_parameter_definition"
+},
+"rebalance_interval": {
+"$ref": "#/$defs/numeric_parameter_definition"
+},
+"overcorrection_limit": {
+"$ref": "#/$defs/numeric_parameter_definition"
+},
+"phase_stability_score": {
+"$ref": "#/$defs/numeric_parameter_definition"
+},
+"oscillation_decay": {
+"$ref": "#/$defs/numeric_parameter_definition"
+},
+"adaptive_convergence": {
+"$ref": "#/$defs/object_parameter_definition"
+}
+}
+},
+"control_modes": {
+"type": "object",
+"required": [
+"conservative",
+"balanced",
+"responsive"
+],
+"additionalProperties": false,
+"properties": {
+"conservative": {
+"$ref": "#/$defs/control_mode"
+},
+"balanced": {
+"$ref": "#/$defs/control_mode"
+},
+"responsive": {
+"$ref": "#/$defs/control_mode"
+}
+}
+},
+"stability_evaluation": {
+"type": "object",
+"required": [
+"description",
+"inputs",
+"outputs",
+"decision_rules"
+],
+"additionalProperties": false,
+"properties": {
+"description": {
+"type": "string"
+},
+"inputs": {
+"type": "array",
+"items": {
+"type": "string"
+},
+"minItems": 1
+},
+"outputs": {
+"type": "array",
+"items": {
+"type": "string"
+},
+"minItems": 1
+},
+"decision_rules": {
+"type": "object",
+"required": [
+"stable",
+"watch",
+"rebalance_required",
+"overcorrection_risk"
+],
+"additionalProperties": false,
+"properties": {
+"stable": {
+"$ref": "#/$defs/decision_rule"
+},
+"watch": {
+"$ref": "#/$defs/decision_rule"
+},
+"rebalance_required": {
+"$ref": "#/$defs/decision_rule"
+},
+"overcorrection_risk": {
+"$ref": "#/$defs/decision_rule"
+}
+}
+}
+}
+},
+"rebalance_behavior": {
+"type": "object",
+"required": [
+"description",
+"allowed_actions",
+"prohibited_actions"
+],
+"additionalProperties": false,
+"properties": {
+"description": {
+"type": "string"
+},
+"allowed_actions": {
+"type": "array",
+"items": {
+"type": "string"
+},
+"minItems": 1
+},
+"prohibited_actions": {
+"type": "array",
+"items": {
+"type": "string"
+},
+"minItems": 1
+}
+}
+},
+"claim_boundaries": {
+"type": "object",
+"required": [
+"description",
+"allowed_claims",
+"disallowed_claims"
+],
+"additionalProperties": false,
+"properties": {
+"description": {
+"type": "string"
+},
+"allowed_claims": {
+"type": "array",
+"items": {
+"type": "string"
+},
+"minItems": 1
+},
+"disallowed_claims": {
+"type": "array",
+"items": {
+"type": "string"
+},
+"minItems": 1
+}
+}
+},
+"validation_expectations": {
+"type": "object",
+"required": [
+"description",
+"required_checks"
+],
+"additionalProperties": false,
+"properties": {
+"description": {
+"type": "string"
+},
+"required_checks": {
+"type": "array",
+"items": {
+"type": "string"
+},
+"minItems": 1
+}
+}
+},
+"example_reference": {
+"type": "object",
+"required": [
+"planned_examples"
+],
+"additionalProperties": false,
+"properties": {
+"planned_examples": {
+"type": "array",
+"items": {
+"type": "string"
+},
+"minItems": 1
+}
+}
+},
+"release_notes": {
+"type": "object",
+"minProperties": 1,
+"additionalProperties": {
+"type": "object",
+"required": [
+"summary",
+"added"
+],
+"additionalProperties": false,
+"properties": {
+"summary": {
+"type": "string"
+},
+"added": {
+"type": "array",
+"items": {
+"type": "string"
+},
+"minItems": 1
+}
+}
+}
+}
+},
+"$defs": {
+"numeric_parameter_definition": {
+"type": "object",
+"required": [
+"type",
+"description",
+"interpretation"
+],
+"additionalProperties": false,
+"properties": {
+"type": {
+"type": "string",
+"enum": [
+"number",
+"integer"
+]
+},
+"unit": {
+"type": "string"
+},
+"description": {
+"type": "string"
+},
+"minimum": {
+"type": "number"
+},
+"maximum": {
+"type": "number"
+},
+"recommended_range": {
+"$ref": "#/$defs/recommended_range"
+},
+"interpretation": {
+"$ref": "#/$defs/string_map"
+}
+}
+},
+"object_parameter_definition": {
+"type": "object",
+"required": [
+"type",
+"description",
+"properties",
+"interpretation"
+],
+"additionalProperties": false,
+"properties": {
+"type": {
+"type": "string",
+"const": "object"
+},
+"description": {
+"type": "string"
+},
+"properties": {
+"type": "object",
+"minProperties": 1,
+"additionalProperties": {
+"$ref": "#/$defs/property_definition"
+}
+},
+"recommended_defaults": {
+"type": "object",
+"additionalProperties": {
+"type": [
+"string",
+"number",
+"integer",
+"boolean"
+]
+}
+},
+"interpretation": {
+"$ref": "#/$defs/string_map"
+}
+}
+},
+"property_definition": {
+"type": "object",
+"required": [
+"type"
+],
+"additionalProperties": false,
+"properties": {
+"type": {
+"type": "string",
+"enum": [
+"string",
+"number",
+"integer",
+"boolean",
+"object",
+"array"
+]
+},
+"unit": {
+"type": "string"
+},
+"minimum": {
+"type": "number"
+},
+"maximum": {
+"type": "number"
+},
+"description": {
+"type": "string"
+}
+}
+},
+"recommended_range": {
+"type": "object",
+"required": [
+"min",
+"max"
+],
+"additionalProperties": false,
+"properties": {
+"min": {
+"type": "number"
+},
+"max": {
+"type": "number"
+}
+}
+},
+"control_mode": {
+"type": "object",
+"required": [
+"description",
+"suggested_parameters"
+],
+"additionalProperties": false,
+"properties": {
+"description": {
+"type": "string"
+},
+"suggested_parameters": {
+"type": "object",
+"required": [
+"amplitude_threshold",
+"rebalance_interval",
+"overcorrection_limit",
+"adaptive_convergence"
+],
+"additionalProperties": false,
+"properties": {
+"amplitude_threshold": {
+"type": "number",
+"minimum": 0.0,
+"maximum": 1.0
+},
+"rebalance_interval": {
+"type": "number",
+"minimum": 1
+},
+"overcorrection_limit": {
+"type": "number",
+"minimum": 0.0,
+"maximum": 1.0
+},
+"adaptive_convergence": {
+"type": "object",
+"required": [
+"enabled",
+"adjustment_rate",
+"context_sensitivity"
+],
+"additionalProperties": false,
+"properties": {
+"enabled": {
+"type": "boolean"
+},
+"adjustment_rate": {
+"type": "number",
+"minimum": 0.0,
+"maximum": 1.0
+},
+"context_sensitivity": {
+"type": "number",
+"minimum": 0.0,
+"maximum": 1.0
+}
+}
+}
+}
+}
+}
+},
+"decision_rule": {
+"type": "object",
+"required": [
+"description",
+"conditions"
+],
+"additionalProperties": false,
+"properties": {
+"description": {
+"type": "string"
+},
+"conditions": {
+"type": "array",
+"items": {
+"type": "string"
+},
+"minItems": 1
+}
+}
+},
+"string_map": {
+"type": "object",
+"minProperties": 1,
+"additionalProperties": {
+"type": "string"
+}
+}
+}
+}

@@ -18,7 +18,7 @@ This script validates:
 The examples are checked for YAML validity and basic structural integrity.
 """
 
-from **future** import annotations
+from __future__ import annotations
 
 import json
 import sys

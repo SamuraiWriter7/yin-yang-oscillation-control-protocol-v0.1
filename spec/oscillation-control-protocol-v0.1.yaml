@@ -1,342 +1,338 @@
 protocol:
-id: "yin-yang-oscillation-control-protocol"
-name: "Yin-Yang Oscillation Control Protocol"
-version: "0.1.0-draft"
-status: "draft"
-layer: "control_optimization_layer"
+  id: "yin-yang-oscillation-control-protocol"
+  name: "Yin-Yang Oscillation Control Protocol"
+  version: "0.1.0-draft"
+  status: "draft"
+  layer: "control_optimization_layer"
 
 metadata:
-description: >
-A control-layer extension for oscillation tuning, convergence windows,
-amplitude thresholds, and dynamic rebalance behavior in Yin-Yang
-Five-Phase reasoning systems.
-repository: "yin-yang-oscillation-control-protocol-v0.1"
-license: "MIT"
-specification_type: "conceptual_protocol"
-implementation_status: "reference_specification"
+  description: >
+    A control-layer extension for oscillation tuning, convergence windows,
+    amplitude thresholds, and dynamic rebalance behavior in Yin-Yang
+    Five-Phase reasoning systems.
+  repository: "yin-yang-oscillation-control-protocol-v0.1"
+  license: "MIT"
+  specification_type: "conceptual_protocol"
+  implementation_status: "reference_specification"
 
 parent_protocol:
-id: "yin-yang-five-phase-reasoning-protocol"
-role: "core_reasoning_structure"
-relationship: >
-The parent protocol defines phases, reasoning metrics, Yin-Yang balancing,
-and claim boundaries. This protocol extends that foundation by defining
-control-layer behavior for oscillation tuning, convergence, and rebalance
-timing.
-dependency_type: "conceptual_extension"
+  id: "yin-yang-five-phase-reasoning-protocol"
+  role: "core_reasoning_structure"
+  relationship: >
+    The parent protocol defines phases, reasoning metrics, Yin-Yang balancing,
+    and claim boundaries. This protocol extends that foundation by defining
+    control-layer behavior for oscillation tuning, convergence, and rebalance
+    timing.
+  dependency_type: "conceptual_extension"
 
 purpose:
-summary: >
-This protocol defines a control layer for managing dynamic fluctuation,
-convergence behavior, amplitude thresholds, and phase stability in
-Yin-Yang Five-Phase reasoning systems.
-goals:
-- "Separate core reasoning structure from dynamic control behavior."
-- "Provide bounded parameters for oscillation and convergence tuning."
-- "Support adaptive rebalance behavior without rewriting the parent protocol."
-- "Prevent excessive correction caused by unstable or overreactive control loops."
-- "Treat oscillation as a measurable signal rather than merely as noise."
+  summary: >
+    This protocol defines a control layer for managing dynamic fluctuation,
+    convergence behavior, amplitude thresholds, and phase stability in
+    Yin-Yang Five-Phase reasoning systems.
+  goals:
+    - "Separate core reasoning structure from dynamic control behavior."
+    - "Provide bounded parameters for oscillation and convergence tuning."
+    - "Support adaptive rebalance behavior without rewriting the parent protocol."
+    - "Prevent excessive correction caused by unstable or overreactive control loops."
+    - "Treat oscillation as a measurable signal rather than merely as noise."
 
 scope:
-included:
-- "oscillation_period"
-- "amplitude_threshold"
-- "convergence_window"
-- "rebalance_interval"
-- "overcorrection_limit"
-- "phase_stability_score"
-- "oscillation_decay"
-- "adaptive_convergence"
-excluded:
-- "complete_ai_safety_system"
-- "consciousness_model"
-- "production_runtime"
-- "guaranteed_reasoning_optimizer"
-- "model_internal_claims"
-- "empirical_performance_claims_without_testing"
+  included:
+    - "oscillation_period"
+    - "amplitude_threshold"
+    - "convergence_window"
+    - "rebalance_interval"
+    - "overcorrection_limit"
+    - "phase_stability_score"
+    - "oscillation_decay"
+    - "adaptive_convergence"
+  excluded:
+    - "complete_ai_safety_system"
+    - "consciousness_model"
+    - "production_runtime"
+    - "guaranteed_reasoning_optimizer"
+    - "model_internal_claims"
+    - "empirical_performance_claims_without_testing"
 
 core_control_parameters:
-oscillation_period:
-type: "number"
-unit: "reasoning_cycle"
-description: >
-Defines the observed or expected cycle length of reasoning-state
-fluctuation before stability or correction is evaluated.
-minimum: 1
-recommended_range:
-min: 2
-max: 8
-interpretation:
-low_value: "Frequent evaluation and fast response."
-high_value: "Slower evaluation with greater tolerance for natural fluctuation."
+  oscillation_period:
+    type: "number"
+    unit: "reasoning_cycle"
+    description: >
+      Defines the observed or expected cycle length of reasoning-state
+      fluctuation before stability or correction is evaluated.
+    minimum: 1
+    recommended_range:
+      min: 2
+      max: 8
+    interpretation:
+      low_value: "Frequent evaluation and fast response."
+      high_value: "Slower evaluation with greater tolerance for natural fluctuation."
 
-amplitude_threshold:
-type: "number"
-unit: "normalized_deviation"
-description: >
-Defines the maximum acceptable deviation from the target balance state
-before corrective behavior may be triggered.
-minimum: 0.0
-maximum: 1.0
-recommended_range:
-min: 0.15
-max: 0.45
-interpretation:
-low_value: "Sensitive correction behavior."
-high_value: "Greater tolerance for fluctuation before correction."
+  amplitude_threshold:
+    type: "number"
+    unit: "normalized_deviation"
+    description: >
+      Defines the maximum acceptable deviation from the target balance state
+      before corrective behavior may be triggered.
+    minimum: 0.0
+    maximum: 1.0
+    recommended_range:
+      min: 0.15
+      max: 0.45
+    interpretation:
+      low_value: "Sensitive correction behavior."
+      high_value: "Greater tolerance for fluctuation before correction."
 
-convergence_window:
-type: "object"
-description: >
-Defines the acceptable stability range within which a reasoning process
-may be considered sufficiently converged.
-properties:
-lower_bound:
-type: "number"
-minimum: 0.0
-maximum: 1.0
-upper_bound:
-type: "number"
-minimum: 0.0
-maximum: 1.0
-minimum_duration:
-type: "number"
-unit: "reasoning_cycle"
-minimum: 1
-recommended_defaults:
-lower_bound: 0.65
-upper_bound: 0.90
-minimum_duration: 2
-interpretation:
-within_window: "Reasoning state may be treated as sufficiently stable."
-below_window: "Reasoning state may require additional balancing or clarification."
-above_window: "Reasoning state may be over-converged or prematurely fixed."
+  convergence_window:
+    type: "object"
+    description: >
+      Defines the acceptable stability range within which a reasoning process
+      may be considered sufficiently converged.
+    properties:
+      lower_bound:
+        type: "number"
+        minimum: 0.0
+        maximum: 1.0
+      upper_bound:
+        type: "number"
+        minimum: 0.0
+        maximum: 1.0
+      minimum_duration:
+        type: "number"
+        unit: "reasoning_cycle"
+        minimum: 1
+    recommended_defaults:
+      lower_bound: 0.65
+      upper_bound: 0.90
+      minimum_duration: 2
+    interpretation:
+      within_window: "Reasoning state may be treated as sufficiently stable."
+      below_window: "Reasoning state may require additional balancing or clarification."
+      above_window: "Reasoning state may be over-converged or prematurely fixed."
 
-rebalance_interval:
-type: "number"
-unit: "reasoning_cycle"
-description: >
-Defines how frequently the system should evaluate whether phase-level
-or Yin-Yang rebalance behavior is required.
-minimum: 1
-recommended_range:
-min: 2
-max: 6
-interpretation:
-short_interval: "Frequent rebalancing with higher responsiveness."
-long_interval: "Less frequent rebalancing with greater continuity."
+  rebalance_interval:
+    type: "number"
+    unit: "reasoning_cycle"
+    description: >
+      Defines how frequently the system should evaluate whether phase-level
+      or Yin-Yang rebalance behavior is required.
+    minimum: 1
+    recommended_range:
+      min: 2
+      max: 6
+    interpretation:
+      short_interval: "Frequent rebalancing with higher responsiveness."
+      long_interval: "Less frequent rebalancing with greater continuity."
 
-overcorrection_limit:
-type: "number"
-unit: "normalized_correction_strength"
-description: >
-Defines the maximum permitted correction strength in a single rebalance
-action in order to prevent instability caused by excessive correction.
-minimum: 0.0
-maximum: 1.0
-recommended_range:
-min: 0.20
-max: 0.60
-interpretation:
-low_value: "Gentle correction behavior."
-high_value: "Stronger correction behavior with higher instability risk."
+  overcorrection_limit:
+    type: "number"
+    unit: "normalized_correction_strength"
+    description: >
+      Defines the maximum permitted correction strength in a single rebalance
+      action in order to prevent instability caused by excessive correction.
+    minimum: 0.0
+    maximum: 1.0
+    recommended_range:
+      min: 0.20
+      max: 0.60
+    interpretation:
+      low_value: "Gentle correction behavior."
+      high_value: "Stronger correction behavior with higher instability risk."
 
-phase_stability_score:
-type: "number"
-unit: "normalized_score"
-description: >
-Represents the observed stability of a reasoning phase over a defined
-evaluation interval.
-minimum: 0.0
-maximum: 1.0
-interpretation:
-"0.0": "Completely unstable phase behavior."
-"0.5": "Partially stable or context-dependent phase behavior."
-"1.0": "Highly stable phase behavior."
+  phase_stability_score:
+    type: "number"
+    unit: "normalized_score"
+    description: >
+      Represents the observed stability of a reasoning phase over a defined
+      evaluation interval.
+    minimum: 0.0
+    maximum: 1.0
+    interpretation:
+      "0.0": "Completely unstable phase behavior."
+      "0.5": "Partially stable or context-dependent phase behavior."
+      "1.0": "Highly stable phase behavior."
 
-oscillation_decay:
-type: "number"
-unit: "normalized_decay_rate"
-description: >
-Measures whether oscillation decreases, persists, or expands across
-repeated reasoning cycles.
-minimum: -1.0
-maximum: 1.0
-interpretation:
-negative_value: "Oscillation is expanding or destabilizing."
-zero_value: "Oscillation is persistent or unchanged."
-positive_value: "Oscillation is decaying toward stability."
+  oscillation_decay:
+    type: "number"
+    unit: "normalized_decay_rate"
+    description: >
+      Measures whether oscillation decreases, persists, or expands across
+      repeated reasoning cycles.
+    minimum: -1.0
+    maximum: 1.0
+    interpretation:
+      negative_value: "Oscillation is expanding or destabilizing."
+      zero_value: "Oscillation is persistent or unchanged."
+      positive_value: "Oscillation is decaying toward stability."
 
-adaptive_convergence:
-type: "object"
-description: >
-Defines whether convergence behavior may adjust dynamically depending
-on phase intensity, reasoning context, and observed stability.
-properties:
-enabled:
-type: "boolean"
-adjustment_rate:
-type: "number"
-minimum: 0.0
-maximum: 1.0
-context_sensitivity:
-type: "number"
-minimum: 0.0
-maximum: 1.0
-recommended_defaults:
-enabled: true
-adjustment_rate: 0.25
-context_sensitivity: 0.50
-interpretation:
-enabled_true: "Convergence behavior may adapt to the reasoning context."
-enabled_false: "Convergence behavior remains fixed during evaluation."
+  adaptive_convergence:
+    type: "object"
+    description: >
+      Defines whether convergence behavior may adjust dynamically depending
+      on phase intensity, reasoning context, and observed stability.
+    properties:
+      enabled:
+        type: "boolean"
+      adjustment_rate:
+        type: "number"
+        minimum: 0.0
+        maximum: 1.0
+      context_sensitivity:
+        type: "number"
+        minimum: 0.0
+        maximum: 1.0
+    recommended_defaults:
+      enabled: true
+      adjustment_rate: 0.25
+      context_sensitivity: 0.50
+    interpretation:
+      enabled_true: "Convergence behavior may adapt to the reasoning context."
+      enabled_false: "Convergence behavior remains fixed during evaluation."
 
 control_modes:
-conservative:
-description: >
-Prioritizes stability, low correction strength, and wider tolerance for
-natural reasoning fluctuation.
-suggested_parameters:
-amplitude_threshold: 0.40
-rebalance_interval: 5
-overcorrection_limit: 0.25
-adaptive_convergence:
-enabled: true
-adjustment_rate: 0.15
-context_sensitivity: 0.40
+  conservative:
+    description: >
+      Prioritizes stability, low correction strength, and wider tolerance for
+      natural reasoning fluctuation.
+    suggested_parameters:
+      amplitude_threshold: 0.40
+      rebalance_interval: 5
+      overcorrection_limit: 0.25
+      adaptive_convergence:
+        enabled: true
+        adjustment_rate: 0.15
+        context_sensitivity: 0.40
 
-balanced:
-description: >
-Balances responsiveness and stability. This is the recommended default
-mode for general protocol-level experimentation.
-suggested_parameters:
-amplitude_threshold: 0.30
-rebalance_interval: 3
-overcorrection_limit: 0.40
-adaptive_convergence:
-enabled: true
-adjustment_rate: 0.25
-context_sensitivity: 0.50
+  balanced:
+    description: >
+      Balances responsiveness and stability. This is the recommended default
+      mode for general protocol-level experimentation.
+    suggested_parameters:
+      amplitude_threshold: 0.30
+      rebalance_interval: 3
+      overcorrection_limit: 0.40
+      adaptive_convergence:
+        enabled: true
+        adjustment_rate: 0.25
+        context_sensitivity: 0.50
 
-responsive:
-description: >
-Prioritizes fast detection and correction of instability. This mode may
-be useful for highly dynamic reasoning contexts, but carries greater
-risk of overcorrection.
-suggested_parameters:
-amplitude_threshold: 0.20
-rebalance_interval: 2
-overcorrection_limit: 0.55
-adaptive_convergence:
-enabled: true
-adjustment_rate: 0.40
-context_sensitivity: 0.70
+  responsive:
+    description: >
+      Prioritizes fast detection and correction of instability. This mode may
+      be useful for highly dynamic reasoning contexts, but carries greater
+      risk of overcorrection.
+    suggested_parameters:
+      amplitude_threshold: 0.20
+      rebalance_interval: 2
+      overcorrection_limit: 0.55
+      adaptive_convergence:
+        enabled: true
+        adjustment_rate: 0.40
+        context_sensitivity: 0.70
 
 stability_evaluation:
-description: >
-Stability evaluation determines whether reasoning behavior remains within
-acceptable bounds over time.
-inputs:
-- "phase_stability_score"
-- "oscillation_decay"
-- "amplitude_threshold"
-- "convergence_window"
-outputs:
-- "stable"
-- "watch"
-- "rebalance_required"
-- "overcorrection_risk"
-decision_rules:
-stable:
-description: "Reasoning behavior remains within the convergence window."
-conditions:
-- "phase_stability_score >= convergence_window.lower_bound"
-- "phase_stability_score <= convergence_window.upper_bound"
-- "oscillation_decay >= 0.0"
+  description: >
+    Stability evaluation determines whether reasoning behavior remains within
+    acceptable bounds over time.
+  inputs:
+    - "phase_stability_score"
+    - "oscillation_decay"
+    - "amplitude_threshold"
+    - "convergence_window"
+  outputs:
+    - "stable"
+    - "watch"
+    - "rebalance_required"
+    - "overcorrection_risk"
+  decision_rules:
+    stable:
+      description: "Reasoning behavior remains within the convergence window."
+      conditions:
+        - "phase_stability_score >= convergence_window.lower_bound"
+        - "phase_stability_score <= convergence_window.upper_bound"
+        - "oscillation_decay >= 0.0"
 
-```
-watch:
-  description: "Reasoning behavior is not yet unstable, but should be monitored."
-  conditions:
-    - "phase_stability_score < convergence_window.lower_bound"
-    - "oscillation_decay >= 0.0"
+    watch:
+      description: "Reasoning behavior is not yet unstable, but should be monitored."
+      conditions:
+        - "phase_stability_score < convergence_window.lower_bound"
+        - "oscillation_decay >= 0.0"
 
-rebalance_required:
-  description: "Reasoning behavior exceeds acceptable oscillation or instability limits."
-  conditions:
-    - "amplitude_threshold exceeded"
-    - "oscillation_decay < 0.0"
+    rebalance_required:
+      description: "Reasoning behavior exceeds acceptable oscillation or instability limits."
+      conditions:
+        - "amplitude_threshold exceeded"
+        - "oscillation_decay < 0.0"
 
-overcorrection_risk:
-  description: "Correction behavior may be too strong and may create secondary instability."
-  conditions:
-    - "correction_strength > overcorrection_limit"
-```
+    overcorrection_risk:
+      description: "Correction behavior may be too strong and may create secondary instability."
+      conditions:
+        - "correction_strength > overcorrection_limit"
 
 rebalance_behavior:
-description: >
-Rebalance behavior describes how the control layer may respond when
-instability or excessive oscillation is detected.
-allowed_actions:
-- "reduce_phase_intensity"
-- "increase_context_review"
-- "delay_convergence"
-- "expand_convergence_window"
-- "narrow_convergence_window"
-- "lower_correction_strength"
-- "increase_rebalance_interval"
-- "decrease_rebalance_interval"
-
-prohibited_actions:
-- "override_parent_protocol_structure"
-- "force_single_phase_dominance"
-- "erase_claim_boundaries"
-- "claim_model_internal_state"
-- "skip_validation_when_required"
+  description: >
+    Rebalance behavior describes how the control layer may respond when
+    instability or excessive oscillation is detected.
+  allowed_actions:
+    - "reduce_phase_intensity"
+    - "increase_context_review"
+    - "delay_convergence"
+    - "expand_convergence_window"
+    - "narrow_convergence_window"
+    - "lower_correction_strength"
+    - "increase_rebalance_interval"
+    - "decrease_rebalance_interval"
+  prohibited_actions:
+    - "override_parent_protocol_structure"
+    - "force_single_phase_dominance"
+    - "erase_claim_boundaries"
+    - "claim_model_internal_state"
+    - "skip_validation_when_required"
 
 claim_boundaries:
-description: >
-This protocol is a conceptual and structural specification. It does not
-claim that any specific AI model implements these mechanisms internally.
-allowed_claims:
-- "This protocol defines a possible control-layer structure."
-- "This protocol may be used to describe oscillation and convergence behavior."
-- "This protocol may support reasoning-system documentation or experimentation."
-disallowed_claims:
-- "This protocol proves that an AI system has internal oscillation control."
-- "This protocol guarantees safer or more accurate reasoning."
-- "This protocol is a complete AI alignment system."
-- "This protocol demonstrates consciousness or self-awareness."
-- "This protocol replaces empirical testing."
+  description: >
+    This protocol is a conceptual and structural specification. It does not
+    claim that any specific AI model implements these mechanisms internally.
+  allowed_claims:
+    - "This protocol defines a possible control-layer structure."
+    - "This protocol may be used to describe oscillation and convergence behavior."
+    - "This protocol may support reasoning-system documentation or experimentation."
+  disallowed_claims:
+    - "This protocol proves that an AI system has internal oscillation control."
+    - "This protocol guarantees safer or more accurate reasoning."
+    - "This protocol is a complete AI alignment system."
+    - "This protocol demonstrates consciousness or self-awareness."
+    - "This protocol replaces empirical testing."
 
 validation_expectations:
-description: >
-Implementations should validate parameter ranges, required fields, and
-structural consistency before using this specification.
-required_checks:
-- "All required control parameters are present."
-- "Numeric values remain within defined minimum and maximum bounds."
-- "convergence_window.lower_bound is less than convergence_window.upper_bound."
-- "rebalance_interval is greater than or equal to 1."
-- "overcorrection_limit is between 0.0 and 1.0."
-- "adaptive_convergence fields are valid when adaptive convergence is enabled."
+  description: >
+    Implementations should validate parameter ranges, required fields, and
+    structural consistency before using this specification.
+  required_checks:
+    - "All required control parameters are present."
+    - "Numeric values remain within defined minimum and maximum bounds."
+    - "convergence_window.lower_bound is less than convergence_window.upper_bound."
+    - "rebalance_interval is greater than or equal to 1."
+    - "overcorrection_limit is between 0.0 and 1.0."
+    - "adaptive_convergence fields are valid when adaptive convergence is enabled."
 
 example_reference:
-planned_examples:
-- "examples/convergence-window.example.yaml"
-- "examples/amplitude-threshold.example.yaml"
-- "examples/rebalance-interval.example.yaml"
+  planned_examples:
+    - "examples/convergence-window.example.yaml"
+    - "examples/amplitude-threshold.example.yaml"
+    - "examples/rebalance-interval.example.yaml"
 
 release_notes:
-v0.1.0-draft:
-summary: >
-Initial draft specification defining the basic structure of the
-Yin-Yang Oscillation Control Protocol.
-added:
-- "Core control parameters"
-- "Control modes"
-- "Stability evaluation model"
-- "Rebalance behavior boundaries"
-- "Claim boundaries"
-- "Validation expectations"
-
+  v0.1.0-draft:
+    summary: >
+      Initial draft specification defining the basic structure of the
+      Yin-Yang Oscillation Control Protocol.
+    added:
+      - "Core control parameters"
+      - "Control modes"
+      - "Stability evaluation model"
+      - "Rebalance behavior boundaries"
+      - "Claim boundaries"
+      - "Validation expectations"

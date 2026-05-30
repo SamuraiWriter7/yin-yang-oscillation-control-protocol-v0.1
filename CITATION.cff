@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: "If you use this specification, please cite it as below."
+
+title: "Yin-Yang Oscillation Control Protocol"
+version: "0.1.0-draft"
+date-released: "2026-05-31"
+
+type: software
+license: MIT
+
+authors:
+  - name: "SamuraiWriter7"
+
+repository-code: "https://github.com/SamuraiWriter7/yin-yang-oscillation-control-protocol-v0.1"
+
+abstract: >
+  Yin-Yang Oscillation Control Protocol is a control-layer extension for
+  oscillation tuning, convergence windows, amplitude thresholds, rebalance
+  intervals, overcorrection limits, phase stability scoring, oscillation decay,
+  and adaptive convergence behavior in Yin-Yang Five-Phase reasoning systems.
+
+keywords:
+  - yin-yang
+  - five-phase
+  - reasoning-protocol
+  - oscillation-control
+  - convergence-window
+  - amplitude-threshold
+  - rebalance-interval
+  - control-layer
+  - ai-reasoning
+  - protocol-specification
+
+preferred-citation:
+  type: software
+  title: "Yin-Yang Oscillation Control Protocol"
+  version: "0.1.0-draft"
+  date-released: "2026-05-31"
+  authors:
+    - name: "SamuraiWriter7"
+  repository-code: "https://github.com/SamuraiWriter7/yin-yang-oscillation-control-protocol-v0.1"
+

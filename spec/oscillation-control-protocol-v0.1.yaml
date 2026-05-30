@@ -417,3 +417,4 @@ release_notes:
     Initial draft specification for oscillation tuning, convergence windows,
     amplitude thresholds, rebalance intervals, overcorrection limits, phase
     stability scoring, oscillation decay, and adaptive convergence.
+

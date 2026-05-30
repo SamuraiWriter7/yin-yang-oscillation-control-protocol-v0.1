@@ -26,11 +26,9 @@ phase_scope:
 - "earth"
 - "metal"
 - "water"
-
 balance_scope:
 - "yin"
 - "yang"
-
 evaluation_mode: "balanced"
 
 stability_inputs:
@@ -74,3 +72,4 @@ claim_boundary:
 note: >
 This example describes a possible evaluation structure. It does not
 claim that any specific AI model internally performs this calculation.
+

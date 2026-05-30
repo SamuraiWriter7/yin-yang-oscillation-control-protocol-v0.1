@@ -11,6 +11,7 @@ description:
 example:
   id: "convergence-window-example"
   name: "Convergence Window Example"
+  version: "0.1.0-draft"
   description: >
     Demonstrates how a reasoning system may delay convergence when stability
     is not yet sufficient and variance remains above the configured window.

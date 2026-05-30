@@ -1,3 +1,13 @@
+description:
+  id: "convergence-window-example"
+  name: "Convergence Window Example"
+  summary: >
+    Demonstrates how a reasoning system may delay convergence when stability
+    is not yet sufficient and variance remains above the configured convergence
+    window.
+  profile: "balanced"
+  scenario: "borderline-convergence"
+
 example:
   id: "convergence-window-example"
   name: "Convergence Window Example"
@@ -10,6 +20,46 @@ example:
 parent_protocol:
   id: "yin-yang-five-phase-reasoning-protocol"
   relationship: "control-layer-extension"
+
+evaluation_context:
+  parent_protocol:
+    id: "yin-yang-five-phase-reasoning-protocol"
+    relationship: "control-layer-extension"
+  input_signals:
+    phase_intensity:
+      wood: 0.62
+      fire: 0.71
+      earth: 0.48
+      metal: 0.44
+      water: 0.57
+    yin_yang_balance:
+      yin: 0.46
+      yang: 0.54
+    metric_variance: 0.36
+    reasoning_cycle_count: 4
+    stability_delta: -0.08
+    correction_history:
+      - cycle: 1
+        action: "continue_without_rebalance"
+      - cycle: 2
+        action: "soft_rebalance"
+      - cycle: 3
+        action: "enter_observation_window"
+  parameters:
+    oscillation_period: 5
+    amplitude_threshold: 0.45
+    rebalance_interval: 6
+    overcorrection_limit: 0.45
+    phase_stability_score: 0.61
+    oscillation_decay: "persistent"
+    convergence_window:
+      minimum_stability: 0.65
+      maximum_variance: 0.30
+      observation_cycles: 3
+    adaptive_convergence:
+      enabled: true
+      adaptation_mode: "hybrid"
+      adjustment_strength: 0.40
 
 input_signals:
   phase_intensity:
@@ -50,6 +100,29 @@ parameters:
     adaptation_mode: "hybrid"
     adjustment_strength: 0.40
 
+decision_logic:
+  convergence_check:
+    minimum_stability_required: 0.65
+    observed_phase_stability_score: 0.61
+    stability_requirement_met: false
+  variance_check:
+    maximum_variance_allowed: 0.30
+    observed_metric_variance: 0.36
+    variance_requirement_met: false
+  decision_reason: >
+    The phase stability score remains below the configured minimum stability
+    requirement, and metric variance remains above the maximum variance allowed
+    by the convergence window. Therefore, convergence should be delayed.
+
+example_result:
+  selected_action: "delay_convergence"
+  convergence_status: "not_converged"
+  stability_requirement_met: false
+  variance_requirement_met: false
+  summary: >
+    The reasoning state should not be treated as converged yet. A continued
+    observation period or mild corrective behavior may be appropriate.
+
 expected_control_behavior:
   selected_action: "delay_convergence"
   reason: >
@@ -60,6 +133,26 @@ expected_control_behavior:
     - "The system should not declare convergence yet."
     - "A short observation period may be continued before applying stronger correction."
     - "Soft rebalance may be considered if instability persists in later cycles."
+
+recommended_response:
+  action: "delay_convergence"
+  explanation: >
+    Do not close the reasoning process yet. Continue observation because the
+    convergence window has not been satisfied.
+  next_steps:
+    - "Continue monitoring phase stability."
+    - "Check whether variance decreases in later cycles."
+    - "Apply soft rebalance only if instability persists."
+
+claim_boundary:
+  allowed:
+    - "This example shows how a convergence window may delay premature closure."
+    - "This example can be used for schema validation and documentation."
+    - "This example models control-layer behavior conceptually."
+  disallowed:
+    - "This example proves that an AI system has internally converged."
+    - "This example guarantees correct reasoning output."
+    - "This example replaces empirical evaluation."
 
 claim_boundaries:
   allowed:
@@ -75,3 +168,4 @@ notes:
   - "The values in this example are illustrative and implementation-neutral."
   - "The convergence window is intended to prevent premature reasoning closure."
   - "Persistent oscillation does not always require hard rebalance."
+

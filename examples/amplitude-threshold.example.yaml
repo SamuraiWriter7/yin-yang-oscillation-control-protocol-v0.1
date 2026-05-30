@@ -1,0 +1,77 @@
+example:
+  id: "amplitude-threshold-example"
+  name: "Amplitude Threshold Example"
+  description: >
+    Demonstrates how a reasoning system may trigger a soft rebalance when
+    observed oscillation amplitude slightly exceeds the configured threshold.
+  profile: "responsive"
+  scenario: "amplitude-threshold-exceeded"
+
+parent_protocol:
+  id: "yin-yang-five-phase-reasoning-protocol"
+  relationship: "control-layer-extension"
+
+input_signals:
+  phase_intensity:
+    wood: 0.73
+    fire: 0.81
+    earth: 0.42
+    metal: 0.38
+    water: 0.49
+  yin_yang_balance:
+    yin: 0.39
+    yang: 0.61
+  metric_variance: 0.33
+  observed_amplitude: 0.31
+  reasoning_cycle_count: 3
+  stability_delta: -0.06
+  correction_history:
+    - cycle: 1
+      action: "continue_without_rebalance"
+    - cycle: 2
+      action: "enter_observation_window"
+
+parameters:
+  oscillation_period: 3
+  amplitude_threshold: 0.25
+  rebalance_interval: 3
+  overcorrection_limit: 0.55
+  phase_stability_score: 0.58
+  oscillation_decay: "persistent"
+
+  convergence_window:
+    minimum_stability: 0.60
+    maximum_variance: 0.35
+    observation_cycles: 2
+
+  adaptive_convergence:
+    enabled: true
+    adaptation_mode: "context_sensitive"
+    adjustment_strength: 0.55
+
+expected_control_behavior:
+  selected_action: "soft_rebalance"
+  reason: >
+    The observed amplitude exceeds the configured amplitude threshold, while
+    oscillation remains persistent rather than expanding. A soft rebalance is
+    appropriate because instability is present but does not yet justify a hard
+    rebalance.
+  notes:
+    - "The system should reduce phase drift without forcing abrupt correction."
+    - "The correction intensity should remain below the overcorrection limit."
+    - "If amplitude continues to increase in later cycles, hard rebalance may be considered."
+
+claim_boundaries:
+  allowed:
+    - "This example shows how amplitude threshold crossing may trigger soft rebalance."
+    - "This example can be used for schema validation and documentation."
+    - "This example models control-layer behavior conceptually."
+  disallowed:
+    - "This example proves that an AI system internally measures amplitude this way."
+    - "This example guarantees reasoning stability."
+    - "This example replaces empirical testing."
+
+notes:
+  - "The observed amplitude slightly exceeds the configured threshold."
+  - "Persistent oscillation is treated as a signal for correction, not immediate failure."
+  - "Soft rebalance is preferred when instability is moderate and bounded."

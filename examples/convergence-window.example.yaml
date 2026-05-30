@@ -21,6 +21,7 @@ example:
 
 parent_protocol:
   id: "yin-yang-five-phase-reasoning-protocol"
+  version: "0.3.1"
   relationship: "control-layer-extension"
 
 evaluation_context:

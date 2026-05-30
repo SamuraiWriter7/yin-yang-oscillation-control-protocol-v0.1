@@ -1,6 +1,18 @@
+description:
+  id: "rebalance-interval-example"
+  name: "Rebalance Interval Example"
+  summary: >
+    Demonstrates how a reasoning system may evaluate rebalance behavior when
+    the configured rebalance interval has been reached during repeated reasoning
+    cycles.
+  profile: "balanced"
+  scenario: "scheduled-rebalance-check"
+
 example:
   id: "rebalance-interval-example"
   name: "Rebalance Interval Example"
+  version: "0.1.0-draft"
+  type: "rebalance_interval"
   description: >
     Demonstrates how a reasoning system may evaluate rebalance behavior when
     the configured rebalance interval has been reached during repeated reasoning
@@ -10,7 +22,54 @@ example:
 
 parent_protocol:
   id: "yin-yang-five-phase-reasoning-protocol"
+  version: "0.3.1"
   relationship: "control-layer-extension"
+
+evaluation_context:
+  parent_protocol:
+    id: "yin-yang-five-phase-reasoning-protocol"
+    version: "0.3.1"
+    relationship: "control-layer-extension"
+  input_signals:
+    phase_intensity:
+      wood: 0.58
+      fire: 0.69
+      earth: 0.51
+      metal: 0.43
+      water: 0.47
+    yin_yang_balance:
+      yin: 0.41
+      yang: 0.59
+    metric_variance: 0.29
+    observed_amplitude: 0.42
+    reasoning_cycle_count: 6
+    stability_delta: -0.05
+    correction_history:
+      - cycle: 1
+        action: "continue_without_rebalance"
+      - cycle: 2
+        action: "continue_without_rebalance"
+      - cycle: 3
+        action: "enter_observation_window"
+      - cycle: 4
+        action: "continue_without_rebalance"
+      - cycle: 5
+        action: "continue_without_rebalance"
+  parameters:
+    oscillation_period: 5
+    amplitude_threshold: 0.45
+    rebalance_interval: 6
+    overcorrection_limit: 0.45
+    phase_stability_score: 0.63
+    oscillation_decay: "persistent"
+    convergence_window:
+      minimum_stability: 0.65
+      maximum_variance: 0.30
+      observation_cycles: 3
+    adaptive_convergence:
+      enabled: true
+      adaptation_mode: "hybrid"
+      adjustment_strength: 0.40
 
 input_signals:
   phase_intensity:
@@ -56,6 +115,39 @@ parameters:
     adaptation_mode: "hybrid"
     adjustment_strength: 0.40
 
+decision_logic:
+  interval_check:
+    configured_rebalance_interval: 6
+    observed_reasoning_cycle_count: 6
+    interval_reached: true
+  amplitude_check:
+    configured_amplitude_threshold: 0.45
+    observed_amplitude: 0.42
+    threshold_exceeded: false
+  stability_check:
+    minimum_stability_required: 0.65
+    observed_phase_stability_score: 0.63
+    stability_requirement_met: false
+  decay_check:
+    observed_oscillation_decay: "persistent"
+    expanding_instability_detected: false
+  decision_reason: >
+    The configured rebalance interval has been reached, and the phase stability
+    score remains slightly below the convergence requirement. However, observed
+    amplitude remains below the configured threshold and oscillation is
+    persistent rather than expanding, so a soft rebalance is preferred.
+
+example_result:
+  selected_action: "soft_rebalance"
+  interval_reached: true
+  amplitude_threshold_exceeded: false
+  convergence_status: "mildly_unstable"
+  hard_rebalance_required: false
+  summary: >
+    The reasoning state has reached the scheduled rebalance evaluation point.
+    Since instability is mild and bounded, the recommended behavior is a soft
+    rebalance rather than hard correction.
+
 expected_control_behavior:
   selected_action: "soft_rebalance"
   reason: >
@@ -67,6 +159,28 @@ expected_control_behavior:
     - "The system should perform a scheduled rebalance evaluation at cycle 6."
     - "The correction should remain mild because amplitude has not exceeded the threshold."
     - "Soft rebalance may help prevent gradual drift before instability expands."
+
+recommended_response:
+  action: "soft_rebalance"
+  explanation: >
+    Perform a mild rebalance because the scheduled rebalance interval has been
+    reached and phase stability is slightly below the convergence requirement.
+    Do not apply hard rebalance because amplitude remains below the configured
+    threshold.
+  next_steps:
+    - "Apply a bounded soft rebalance."
+    - "Continue monitoring phase stability."
+    - "Escalate only if amplitude exceeds the threshold or oscillation becomes expanding."
+
+claim_boundary:
+  allowed:
+    - "This example shows how rebalance interval timing may trigger evaluation."
+    - "This example can be used for schema validation and documentation."
+    - "This example models control-layer behavior conceptually."
+  disallowed:
+    - "This example proves that an AI system internally schedules rebalance checks this way."
+    - "This example guarantees convergence after rebalance."
+    - "This example replaces empirical testing."
 
 claim_boundaries:
   allowed:
@@ -82,3 +196,4 @@ notes:
   - "The rebalance interval determines when evaluation should occur, not necessarily when hard correction should be applied."
   - "A scheduled check may result in no rebalance, soft rebalance, or delayed convergence depending on system state."
   - "In this example, soft rebalance is selected because instability is mild but persistent."
+

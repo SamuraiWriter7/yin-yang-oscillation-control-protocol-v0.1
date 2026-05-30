@@ -4,10 +4,7 @@ name: "Convergence Window Example"
 version: "0.1.0-draft"
 type: "convergence_window_configuration"
 
-description: >
-This example defines a basic convergence window for evaluating whether
-a reasoning process has remained sufficiently stable across multiple
-reasoning cycles.
+description: "This example defines a basic convergence window for evaluating whether a reasoning process has remained sufficiently stable across multiple reasoning cycles."
 
 parent_protocol:
 id: "yin-yang-oscillation-control-protocol"
@@ -57,19 +54,13 @@ conditions:
 
 example_result:
 status: "stable"
-reason: >
-The phase stability score remains within the convergence window,
-oscillation is decaying, and the observed amplitude does not exceed
-the configured threshold.
+reason: "The phase stability score remains within the convergence window, oscillation is decaying, and the observed amplitude does not exceed the configured threshold."
 
 recommended_response:
 action: "continue_without_rebalance"
-description: >
-The reasoning process may continue without immediate rebalance because
-the current state is within the accepted convergence window.
+description: "The reasoning process may continue without immediate rebalance because the current state is within the accepted convergence window."
 
 claim_boundary:
-note: >
-This example describes a possible evaluation structure. It does not
-claim that any specific AI model internally performs this calculation.
+note: "This example describes a possible evaluation structure. It does not claim that any specific AI model internally performs this calculation."
+
 

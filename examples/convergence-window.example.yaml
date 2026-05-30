@@ -1,0 +1,76 @@
+example:
+id: "convergence-window-example"
+name: "Convergence Window Example"
+version: "0.1.0-draft"
+type: "convergence_window_configuration"
+
+description: >
+This example defines a basic convergence window for evaluating whether
+a reasoning process has remained sufficiently stable across multiple
+reasoning cycles.
+
+parent_protocol:
+id: "yin-yang-oscillation-control-protocol"
+version: "0.1.0-draft"
+
+convergence_window:
+lower_bound: 0.65
+upper_bound: 0.90
+minimum_duration: 2
+unit: "reasoning_cycle"
+
+evaluation_context:
+phase_scope:
+- "wood"
+- "fire"
+- "earth"
+- "metal"
+- "water"
+
+balance_scope:
+- "yin"
+- "yang"
+
+evaluation_mode: "balanced"
+
+stability_inputs:
+phase_stability_score: 0.74
+oscillation_decay: 0.18
+observed_amplitude: 0.26
+amplitude_threshold: 0.30
+
+decision_logic:
+stable:
+conditions:
+- "phase_stability_score >= convergence_window.lower_bound"
+- "phase_stability_score <= convergence_window.upper_bound"
+- "oscillation_decay >= 0.0"
+- "observed_amplitude <= amplitude_threshold"
+
+watch:
+conditions:
+- "phase_stability_score < convergence_window.lower_bound"
+- "oscillation_decay >= 0.0"
+
+rebalance_required:
+conditions:
+- "observed_amplitude > amplitude_threshold"
+- "oscillation_decay < 0.0"
+
+example_result:
+status: "stable"
+reason: >
+The phase stability score remains within the convergence window,
+oscillation is decaying, and the observed amplitude does not exceed
+the configured threshold.
+
+recommended_response:
+action: "continue_without_rebalance"
+description: >
+The reasoning process may continue without immediate rebalance because
+the current state is within the accepted convergence window.
+
+claim_boundary:
+note: >
+This example describes a possible evaluation structure. It does not
+claim that any specific AI model internally performs this calculation.

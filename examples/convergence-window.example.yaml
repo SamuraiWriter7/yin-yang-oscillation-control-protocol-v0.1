@@ -1,154 +1,67 @@
 example:
-  name: convergence_window_example
-  version: "0.1.0"
-  status: experimental
-  type: oscillation_control_example
+id: "convergence-window-example"
+name: "Convergence Window Example"
+version: "0.1.0-draft"
+type: "convergence_window_configuration"
 
-description: >
-  This example demonstrates how a convergence window can stabilize
-  oscillating reasoning behavior before making a final decision to stop,
-  compress, rebalance, or return later. The convergence window prevents
-  decisions from being made at the peak of expansion or suppression.
+description: "This example defines a basic convergence window for evaluating whether a reasoning process has remained sufficiently stable across multiple reasoning cycles."
 
 parent_protocol:
-  name: Yin-Yang Oscillation Control Protocol
-  version: "0.1.0"
-  related_protocols:
-    - Yin-Yang Five-Phase Reasoning Protocol v0.3.1
-    - Yin-Yang Balancer v0.3.0
-  relationship: >
-    This example extends the Yin-Yang Balancer concept by showing how
-    oscillation amplitude and convergence windows can be used to stabilize
-    reasoning flow before final routing decisions.
+id: "yin-yang-oscillation-control-protocol"
+version: "0.1.0-draft"
+
+convergence_window:
+lower_bound: 0.65
+upper_bound: 0.90
+minimum_duration: 2
+unit: "reasoning_cycle"
 
 evaluation_context:
-  scenario: >
-    A reasoning process has expanded through multiple branches. Activation
-    is high, suppression pressure is rising, and stop confidence is not yet
-    sufficient. The system should not immediately stop or continue expanding.
-    It should enter a convergence window.
+phase_scope:
+- "wood"
+- "fire"
+- "earth"
+- "metal"
+- "water"
+balance_scope:
+- "yin"
+- "yang"
+evaluation_mode: "balanced"
 
-  initial_state:
-    active_phase: fire
-    state_mode: yang
-    oscillation_amplitude: high
-    instability_detected: true
-
-  control_metrics:
-    activation_level: 0.84
-    compression_level: 0.22
-    routing_cost: 0.71
-    suppression_score: 0.76
-    stop_confidence: 0.48
-    phase_stability_score: 0.41
-
-  convergence_window:
-    enabled: true
-    window_type: short
-    evaluation_cycles: 2
-    purpose: >
-      Allow the reasoning flow to stabilize before committing to stopping,
-      rebalancing, compression, or delayed return.
+stability_inputs:
+phase_stability_score: 0.74
+oscillation_decay: 0.18
+observed_amplitude: 0.26
+amplitude_threshold: 0.30
 
 decision_logic:
-  entry_condition:
-    oscillation_amplitude: high
-    phase_stability_score: low
-    suppression_score: high
-    stop_confidence: medium
+stable:
+conditions:
+- "phase_stability_score >= convergence_window.lower_bound"
+- "phase_stability_score <= convergence_window.upper_bound"
+- "oscillation_decay >= 0.0"
+- "observed_amplitude <= amplitude_threshold"
 
-  stabilization_policy:
-    prevent_immediate_stop: true
-    prevent_overcorrection: true
-    allow_compression: true
-    allow_delayed_return: true
+watch:
+conditions:
+- "phase_stability_score < convergence_window.lower_bound"
+- "oscillation_decay >= 0.0"
 
-  routing_policy:
-    preferred_route:
-      - fire
-      - earth
-      - metal
-      - water
-
-    reason: >
-      Fire expansion is excessive, but stop confidence is not high enough
-      for immediate termination. Earth should stabilize context, Metal
-      should prune redundant branches, and Water should settle the result.
-
-  exit_conditions:
-    stop_when:
-      stop_confidence: high
-      phase_stability_score: medium_or_high
-      oscillation_amplitude: low_or_moderate
-
-    rebalance_when:
-      phase_conflict: true
-      oscillation_amplitude: high
-      overcorrection_risk: medium_or_high
-
-    delay_return_when:
-      memory_settling_required: true
-      immediate_answer_required: false
+rebalance_required:
+conditions:
+- "observed_amplitude > amplitude_threshold"
+- "oscillation_decay < 0.0"
 
 example_result:
-  selected_action: rebalance_then_compress
-
-  final_state:
-    active_phase: water
-    state_mode: yin
-    oscillation_amplitude: moderate
-    instability_detected: false
-
-  final_metrics:
-    activation_level: 0.46
-    compression_level: 0.68
-    routing_cost: 0.33
-    suppression_score: 0.39
-    stop_confidence: 0.72
-    phase_stability_score: 0.69
-
-  outcome: stabilized_before_stop
-
-  retained_memory:
-    - "High expansion should not trigger immediate stopping."
-    - "A convergence window can prevent overcorrection."
-    - "Earth should stabilize before Metal prunes and Water settles."
+status: "stable"
+reason: "The phase stability score remains within the convergence window, oscillation is decaying, and the observed amplitude does not exceed the configured threshold."
 
 recommended_response:
-  summary: >
-    The system should enter a short convergence window rather than stopping
-    immediately or continuing full expansion. After stabilization, it should
-    route through Earth, Metal, and Water to compress excess reasoning and
-    preserve only useful memory.
-
-  route:
-    - fire
-    - earth
-    - metal
-    - water
-
-  final_decision: delayed_stop_or_memory_return
-
-  principle: >
-    Convergence should be evaluated after a short stabilization window,
-    not at the peak of oscillation.
+action: "continue_without_rebalance"
+description: "The reasoning process may continue without immediate rebalance because the current state is within the accepted convergence window."
 
 claim_boundary:
-  non_claims:
-    - "This example does not claim benchmark-proven performance improvement."
-    - "This example does not claim hardware-level energy reduction."
-    - "This example does not define a complete inference engine."
-    - "This example does not guarantee safer AI behavior."
-    - "This example does not replace existing model architectures."
+note: "This example describes a possible evaluation structure. It does not claim that any specific AI model internally performs this calculation."
 
-  appropriate_claim: >
-    This example illustrates a structural control pattern for stabilizing
-    reasoning flow before making a stop, compression, rebalance, or delayed
-    return decision.
-
-  caution: >
-    The convergence window is a protocol-level design concept. Runtime
-    behavior depends on implementation and should be evaluated through
-    concrete experiments.
 
 
